@@ -22,7 +22,7 @@ class Container extends React.Component {
   async destroyPost (userId, postId) {
     const response = await api.deletePost(userId, postId)
     console.log(response)
-    this.props.history.push(`users/${userId}/posts`)
+    this.props.history.push(`/users/${userId}/posts`)
   }
 
   editPost (post) {
