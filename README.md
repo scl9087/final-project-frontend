@@ -237,7 +237,7 @@ export const profile = async () => {
 
 ---
 
-- [ ] We will have the same problem on the `/users/<userId>/posts` page. Use the same strategy to have this page load correctly on refresh.
+- [√] We will have the same problem on the `/users/<userId>/posts` page. Use the same strategy to have this page load correctly on refresh.
 
 * **Question:** In what component did you add the `loading` property and why?
 
@@ -255,7 +255,7 @@ export const profile = async () => {
 
 ---
 
-- [ ] Let's get our "Delete" link working. On the backend, create a `DELETE Post` route with the path of: 
+- [√] Let's get our "Delete" link working. On the backend, create a `DELETE Post` route with the path of: 
   ```
   DELETE /users/:userId/posts/:postId
   ```
@@ -263,29 +263,27 @@ export const profile = async () => {
 
 ---
 
-- [ ] On the frontend, create a new function in your `src/api` folder that will delete a post. Use that function inside of the `src/components/posts/Container` file. Upon successful deletion, send the user back to the `/users/<userId>/posts` route.
+- [√] On the frontend, create a new function in your `src/api` folder that will delete a post. Use that function inside of the `src/components/posts/Container` file. Upon successful deletion, send the user back to the `/users/<userId>/posts` route.
 
 ---
 
-- [ ] Try deleting a post using the link.
+- [√] Try deleting a post using the link.
 
 * **Question:** Why did the number of posts not change when you were redirected back to the `/users` route?
 
 * **Your Answer:** Whenever we modify our data with a Create, Update, or Delete, we have a few options on how to make our frontend reflect those changes. What options can you think of?
 
-* **Question:**
+---
+
+- [√] Using your preferred method, update your code so that the frontend will reflect the changes made to the backend.
 
 ---
 
-- [ ] Using your preferred method, update your code so that the frontend will reflect the changes made to the backend.
+- [√] Right now it looks like we can Edit and Delete posts for other users. Hide/display those actions to only be available on a post if it's the user's post.
 
 ---
 
-- [ ] Right now it looks like we can Edit and Delete posts for other users. Hide/display those actions to only be available on a post if it's the user's post.
-
----
-
-- [ ] Let's get our "Create a New Post" form to work. On the backend, create a `CREATE Post` route with the path of:
+- [√] Let's get our "Create a New Post" form to work. On the backend, create a `CREATE Post` route with the path of:
   ```
   POST /users/:userId/posts
   ```
@@ -293,19 +291,19 @@ export const profile = async () => {
 
 ---
 
-- [ ] On the frontend, build a function that will POST to the database. Connect that function to the `onSubmit` functionality for the creation form. Finally, use your preferred method to update the state of our frontend. Upon successful creation, send the user back to the `/users/<user-id>/posts` page.
+- [√] On the frontend, build a function that will POST to the database. Connect that function to the `onSubmit` functionality for the creation form. Finally, use your preferred method to update the state of our frontend. Upon successful creation, send the user back to the `/users/<user-id>/posts` page.
 
 ---
 
-- [ ] Our final step is to get our Update form to work. Follow the steps from above to finish this final feature.
+- [√] Our final step is to get our Update form to work. Follow the steps from above to finish this final feature.
 
 ## Exercise
 
 We got a lot done but there's still a lot to do to make this app fully functional. Complete the following features on this application. 
 
-- [ ] If there are no posts for a user, show a message on their `/users/<userId>/posts` page that encourages them to create a new post.
+- [√] If there are no posts for a user, show a message on their `/users/<userId>/posts` page that encourages them to create a new post.
 
-- [ ] If there is no emotion for a post, hide the associated message on each post.
+- [√] If there is no emotion for a post, hide the associated message on each post.
 
 - [ ] Show the user's username on the navigation when they are logged in as a link. When clicked, go to a new page: `/users/<userId>/edit`
 

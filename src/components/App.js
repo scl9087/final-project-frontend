@@ -8,6 +8,7 @@ import UsersContainer from './users/Container'
 
 import * as auth from '../api/auth'
 // import { login } from '../api/auth'
+import * as token from '../helpers/local-storage'
 
 class App extends React.Component {
   constructor () {
@@ -23,62 +24,65 @@ class App extends React.Component {
   }
 
   async componentDidMount () {
-    const token = window.localStorage.getItem('journal-app') //declare what the token is
-    if (token) { //make a request to see if token exists
-      const profile = await auth.profile() //declare user profile
-      this.setState({ currentUserId: profile.user._id }) //set state of currentUserId to be the user's token
+    if (token.getToken()) {
+      const { user } = await auth.profile()
+      this.setState({ currentUserId: user._id, loading: false })
+    } else {
+      this.setState({ loading: false })
     }
-    this.setState({ loading: false })
   }
 
   async loginUser (user) {
-    await auth.login(user)
+    const response = await auth.login(user)
+    await token.setToken(response)
+    
     const profile = await auth.profile()
-
-    this.setState({ currentUserId: profile.user._id})
-    console.log(profile)
+    this.setState({ currentUserId: profile.user._id })
   }
 
   async signupUser (user) {
-    await auth.signup(user)
-    const profile = await auth.profile()
+    // await auth.signup(user)
+    // const profile = await auth.profile()
 
-    this.setState({ currentUserId: profile.user._id})
+    // this.setState({ currentUserId: profile.user._id})
+
+    const response = await auth.signup(user)
+    await token.setToken(response)
+    
+    const profile = await auth.profile()
+    this.setState({ currentUserId: profile.user._id })
   }
 
   logoutUser () {
-    window.localStorage.removeItem('journal-app')
+    // window.localStorage.removeItem('journal-app')
+    token.clearToken()
     this.setState({ currentUserId: null })
   }
 
   render () {
-    if (this.state.loading) return <p>Loading...</p>
-
+    const { currentUserId, loading } = this.state;
+    if (loading) return <span />;
     return (
       <Router>
         <Header />
         <Navigation 
-          currentUserId={this.state.currentUserId} 
+          currentUserId={currentUserId} 
           logoutUser={this.logoutUser}
         />
         <Switch>
           <Route path='/login' exact component={() => {
-            return this.state.currentUserId ? (
-              <Redirect to='/users'/>
-            ) : (
-              <Login onSubmit={this.loginUser} />
-            )
+            return currentUserId ? <Redirect to='/users' /> : <Login onSubmit={this.loginUser} />
           }} />
           <Route path='/signup' exact component={() => {
-            return this.state.currentUserId ? (
-              <Redirect to='/users'/>
-            ) : (
-              <Signup onSubmit={this.signupUser} />
-            )
+            return currentUserId ? <Redirect to='/users' /> : <Signup onSubmit={this.signupUser} />
           }} />
+
           <Route path='/users' render={() => {
-            return this.state.currentUserId ? <UsersContainer /> : <Redirect to='/login'/>
+            return currentUserId
+              ? <UsersContainer currentUserId={currentUserId} />
+              : <Redirect to='/login' />
           }} />
+
           <Redirect to='/login' />
         </Switch>
       </Router>

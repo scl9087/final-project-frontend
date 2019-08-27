@@ -6,13 +6,12 @@ import UnauthenticatedLinks from './Navigation.UnauthenticatedLinks'
 export default ({ currentUserId, logoutUser }) => (
   <section className='bg-light border-bottom mb-4'>
     <div className='container'>
-      { 
-        currentUserId 
-        ? ( <AuthenticatedLinks 
+      { currentUserId ? (
+        <AuthenticatedLinks 
             currentUserId={currentUserId} 
             logoutUser={logoutUser}
-        /> )
-        : <UnauthenticatedLinks /> 
+        />
+      ) : (<UnauthenticatedLinks />) 
       }
     </div>
   </section>
