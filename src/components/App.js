@@ -61,7 +61,7 @@ class App extends React.Component {
 
   render () {
     const { currentUserId, loading } = this.state;
-    if (loading) return <span />;
+    if (loading) return <p>Loading...</p>
     return (
       <Router>
         <Header />

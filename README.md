@@ -233,15 +233,15 @@ export const profile = async () => {
 
 * **Question:** What did you do to solve this problem?
 
-* **Your Answer:** We set the default state to be 'loading: true' and then in componentDidMount, we changed the loading state to be false. We then specified in the render that if the loading state was 'true' to display and <p>.
+* **Your Answer:** We set the default state to be 'loading: true' and then in componentDidMount, we changed the loading state to be false. We then specified in the render that if the loading state was 'true' to display a <p>.
 
 ---
 
-- [√] We will have the same problem on the `/users/<userId>/posts` page. Use the same strategy to have this page load correctly on refresh.
+- [ ] We will have the same problem on the `/users/<userId>/posts` page. Use the same strategy to have this page load correctly on refresh.
 
 * **Question:** In what component did you add the `loading` property and why?
 
-* **Your Answer:**
+* **Your Answer:** We skipped this in class and there didnt seem to be a need for it.
 
 ---
 

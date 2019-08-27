@@ -2,7 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 
-const AuthenticatedLinks = ({ currentUserId, logoutUser, history }) => {
+const AuthenticatedLinks = ({ currentUserId, logoutUser, history, user }) => {
   const logout = () => {
     logoutUser() 
     history.push('/login')
@@ -10,6 +10,17 @@ const AuthenticatedLinks = ({ currentUserId, logoutUser, history }) => {
   
   return (
     <ul className='nav justify-content-end'>
+      {currentUserId ? (
+        <li className='nav-item'>
+          <Link className='nav-link' 
+            user={user} 
+            to={`/users/${currentUserId}/edit`}
+          >
+              User's Page
+          </Link>
+        </li>
+      ) : (<li />
+      )}
       <li className='nav-item'>
         <Link className='nav-link' to='/users'>All Users</Link>
       </li>
