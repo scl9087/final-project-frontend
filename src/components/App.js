@@ -1,13 +1,14 @@
 import React from 'react'
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
+import '../App.css'
 import Header from './shared/Header'
 import Navigation from './shared/Navigation/Navigation'
 import Login from './auth/Login.Form'
 import Signup from './auth/Signup.Form'
 import UsersContainer from './users/Container'
 
+
 import * as auth from '../api/auth'
-// import { login } from '../api/auth'
 import * as token from '../helpers/local-storage'
 
 class App extends React.Component {
@@ -15,7 +16,8 @@ class App extends React.Component {
     super()
     this.state = {
       currentUserId: null,
-      loading: true
+      loading: true,
+      failure: null
     }
 
     this.loginUser = this.loginUser.bind(this)
@@ -24,37 +26,44 @@ class App extends React.Component {
   }
 
   async componentDidMount () {
-    if (token.getToken()) {
-      const { user } = await auth.profile()
-      this.setState({ currentUserId: user._id, loading: false })
-    } else {
-      this.setState({ loading: false })
+    try {
+      if (token.getToken()) {
+        const { user } = await auth.profile()
+        this.setState({ currentUserId: user._id, loading: false })
+      } 
+    } catch (e) {
+      console.error(e.message)
     }
+    this.setState({ loading: false })
   }
 
   async loginUser (user) {
     const response = await auth.login(user)
-    await token.setToken(response)
     
+    if (response.message) {
+      this.setState({ failure: response.message });
+      return;
+    }
+
+    await token.setToken(response)
     const profile = await auth.profile()
     this.setState({ currentUserId: profile.user._id })
   }
 
   async signupUser (user) {
-    // await auth.signup(user)
-    // const profile = await auth.profile()
-
-    // this.setState({ currentUserId: profile.user._id})
-
     const response = await auth.signup(user)
-    await token.setToken(response)
     
+    if (response.message) {
+      this.setState({ failure: response.message });
+      throw new Error(response.message)
+    }
+    
+    await token.setToken(response)
     const profile = await auth.profile()
     this.setState({ currentUserId: profile.user._id })
   }
 
   logoutUser () {
-    // window.localStorage.removeItem('journal-app')
     token.clearToken()
     this.setState({ currentUserId: null })
   }
@@ -71,10 +80,10 @@ class App extends React.Component {
         />
         <Switch>
           <Route path='/login' exact component={() => {
-            return currentUserId ? <Redirect to='/users' /> : <Login onSubmit={this.loginUser} />
+            return currentUserId ? <Redirect to='/users' /> : <Login onSubmit={this.loginUser} failure={this.state.failure} />
           }} />
           <Route path='/signup' exact component={() => {
-            return currentUserId ? <Redirect to='/users' /> : <Signup onSubmit={this.signupUser} />
+            return currentUserId ? <Redirect to='/users' /> : <Signup onSubmit={this.signupUser} failure={this.state.failure} />
           }} />
 
           <Route path='/users' render={() => {

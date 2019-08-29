@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom'
 import * as users from '../../api/users'
 
 import List from './List/List'
-import PostsContainer from '../posts/Container'
+import AssignmentsContainer from '../assignments/Container'
 
 export default class Container extends React.Component {
   constructor (props) {
@@ -17,11 +17,6 @@ export default class Container extends React.Component {
   }
 
   async componentDidMount() {
-    // const token =  window.localStorage.getItem('journal-app')
-    // if (token) {
-    //   const users = await api.getAllUsers()
-    //   this.setState({ users })
-    // }
     this.refreshUsers().then(() => this.setState({ loading: false }));
   }
 
@@ -37,7 +32,7 @@ export default class Container extends React.Component {
     return (
       <main className='container'>
         <Route path='/users' exact component={() => <List users={users} />} />
-        <PostsContainer 
+        <AssignmentsContainer 
           currentUserId={currentUserId}
           refreshUsers={this.refreshUsers}
           users={users} />

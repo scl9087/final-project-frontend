@@ -1,4 +1,4 @@
-const APPLICATION_LOCAL_STORAGE_KEY = 'journal-app'
+const APPLICATION_LOCAL_STORAGE_KEY = 'assignment-tracker'
 export const setToken = ({ token }) => {
   window.localStorage.setItem(APPLICATION_LOCAL_STORAGE_KEY, token)
 }

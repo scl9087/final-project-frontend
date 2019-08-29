@@ -9,14 +9,14 @@ const AuthenticatedLinks = ({ currentUserId, logoutUser, history, user }) => {
   }
   
   return (
-    <ul className='nav justify-content-end'>
+    <ul className='nav justify-content-start'>
       {currentUserId ? (
         <li className='nav-item'>
           <Link className='nav-link' 
             user={user} 
-            to={`/users/${currentUserId}/edit`}
+            to={`/users/${currentUserId}/assignments`}
           >
-              User's Page
+              Home
           </Link>
         </li>
       ) : (<li />
@@ -25,8 +25,8 @@ const AuthenticatedLinks = ({ currentUserId, logoutUser, history, user }) => {
         <Link className='nav-link' to='/users'>All Users</Link>
       </li>
       <li className='nav-item'>
-        <Link className='nav-link' to={`/users/${currentUserId}/posts/new`}>
-          Create a New Post
+        <Link className='nav-link' to={`/users/${currentUserId}/assignments/new`}>
+          Create a New Assignment
         </Link>
       </li>
       <li className='nav-item'>

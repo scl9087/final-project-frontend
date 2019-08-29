@@ -1,0 +1,78 @@
+
+span.error-message {
+  display: block;
+  margin: 20px 0;
+  color: red;
+  font-size: 16px;
+}
+
+ul.student-list {
+  padding: 0;
+}
+
+ul.student-list li {
+  list-style: none;
+  padding: 20px;
+  background: #f8f9fa;
+  border: solid 1px #dee2e6;
+  margin: 10px 0;
+}
+
+ul.student-list li:hover {
+  background: #efefef;
+}
+
+ul.student-list a {
+  color:#5b5e60;
+}
+
+ul.student-list a:hover {
+  text-decoration: none;
+  color: #333637;
+}
+
+p.description {
+  width: 80%;
+}
+
+p.grade {
+  width: 10%;
+  float: right;
+  text-align: right;
+}
+
+.card.assignment {
+  margin-bottom: 15px;
+}
+
+.card-body h3 {
+  width: 85%;
+  float: left;
+}
+
+.button-container {
+  margin: 20px 0 10px 0;
+}
+
+.btn.assignment {
+  border: solid 1px #757575;
+  padding: 8px 20px;
+  margin-right: 15px;
+}
+
+.btn.delete {
+  background: #d0d0d0;
+}
+
+.btn.delete:hover {
+  background: #ff5252;
+  color: #fff;
+  border: solid 1px #ff5252;
+}
+
+.btn.edit:hover {
+  background: #007bff;
+  color: #fff;
+  border: solid 1px #007bff;
+}
+

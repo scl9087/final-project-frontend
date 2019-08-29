@@ -5,8 +5,10 @@ class Form extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      username: '',
-      password: ''
+      first_name: '',
+      last_name: '',
+      email: '',
+      password: '',
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -21,24 +23,28 @@ class Form extends React.Component {
     e.preventDefault()
     this.props.onSubmit(this.state)
       .then(() => this.props.history.push('/users'))
+      //prevent text from clearing out
+      .catch((err) => console.log(err))
   }
 
   render () {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className='form-group'>
-          <label htmlFor='username'>Username</label>
+          <label htmlFor='email'>Email Address</label>
           <input
+            placeholder='Ex. youremail@gmail.com'
             className='form-control'
-            id='username'
+            id='email'
             onChange={this.handleChange}
-            name='username'
-            type='text'
-            value={this.state.username} />
+            name='email'
+            type='email'
+            value={this.state.email} />
         </div>
         <div className='form-group'>
           <label htmlFor='password'>Password</label>
           <input
+            placeholder='minimum of 8 characters'
             className='form-control'
             id='password'
             onChange={this.handleChange}
@@ -46,10 +52,39 @@ class Form extends React.Component {
             type='password'
             value={this.state.password} />
         </div>
+        {(this.props.location.pathname === '/signup') && 
+          <>
+            <div className='form-group'>
+              <label htmlFor='first_name'>First Name</label>
+              <input
+                placeholder='Ex. Jane'
+                className='form-control'
+                id='first_name'
+                onChange={this.handleChange}
+                name='first_name'
+                type='text'
+                value={this.state.first_name} />
+            </div>
+            <div className='form-group'>
+              <label htmlFor='last_name'>Last Name</label>
+              <input
+                placeholder='Ex. Doe'
+                className='form-control'
+                id='last_name'
+                onChange={this.handleChange}
+                name='last_name'
+                type='text'
+                value={this.state.last_name} />
+            </div>
+          </>
+        }
+        
         <button type='submit' className='btn btn-primary'>Submit</button>
+
+        <span className='error-message'>{this.props.failure}</span>
       </form>
     )
   }
 }
-
+ 
 export default withRouter(Form)
