@@ -81,7 +81,7 @@ class Form extends React.Component {
         
         <button type='submit' className='btn btn-primary'>Submit</button>
 
-        <span className='error-message'>{this.props.failure}</span>
+        <span className='error-message'>{this.props.errorMessage}</span>
       </form>
     )
   }

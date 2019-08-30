@@ -2,7 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 
-const AuthenticatedLinks = ({ currentUserId, logoutUser, history, user }) => {
+const AuthenticatedLinks = ({ currentUserId, isAdmin, logoutUser, history, user }) => {
   const logout = () => {
     logoutUser() 
     history.push('/login')
@@ -10,7 +10,7 @@ const AuthenticatedLinks = ({ currentUserId, logoutUser, history, user }) => {
   
   return (
     <ul className='nav justify-content-start'>
-      {currentUserId ? (
+      {currentUserId && isAdmin ? (
         <li className='nav-item'>
           <Link className='nav-link' 
             user={user} 
@@ -22,13 +22,41 @@ const AuthenticatedLinks = ({ currentUserId, logoutUser, history, user }) => {
       ) : (<li />
       )}
       <li className='nav-item'>
-        <Link className='nav-link' to='/users'>All Users</Link>
+        <Link className='nav-link' to='/users'>All Students</Link>
       </li>
-      <li className='nav-item'>
-        <Link className='nav-link' to={`/users/${currentUserId}/assignments/new`}>
-          Create a New Assignment
-        </Link>
-      </li>
+      {currentUserId && isAdmin ? (
+        <li className='nav-item'>
+          <Link className='nav-link' 
+            user={user} 
+            to={`/assignments/ungraded`}
+          >
+              Ungraded Assignments
+          </Link>
+        </li>
+      ) : (<li />
+      )}
+      {currentUserId && isAdmin ? (
+        <li className='nav-item'>
+          <Link className='nav-link' 
+            user={user} 
+            to={`/assignments/graded`}
+          >
+              Graded Assignments
+          </Link>
+        </li>
+      ) : (<li />
+      )}
+      {currentUserId && !isAdmin ? (
+        <li className='nav-item'>
+          <Link className='nav-link' 
+            user={user} 
+            to={`/users/${currentUserId}/assignments/new`}
+          >
+              Create a New Assignment
+          </Link>
+        </li>
+      ) : (<li />
+      )}
       <li className='nav-item'>
         <button
           className='btn btn-link'

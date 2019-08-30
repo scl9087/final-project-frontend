@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import moment from 'moment'
 
 export default ({ currentUserId, destroyAssignment, assignment, user }) => (
   <div className='button-container'>

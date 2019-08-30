@@ -16,8 +16,9 @@ class App extends React.Component {
     super()
     this.state = {
       currentUserId: null,
+      isAdmin: false,
       loading: true,
-      failure: null
+      errorMessage: null
     }
 
     this.loginUser = this.loginUser.bind(this)
@@ -29,7 +30,7 @@ class App extends React.Component {
     try {
       if (token.getToken()) {
         const { user } = await auth.profile()
-        this.setState({ currentUserId: user._id, loading: false })
+        this.setState({ currentUserId: user._id, isAdmin: user.admin, loading: false })
       } 
     } catch (e) {
       console.error(e.message)
@@ -41,57 +42,66 @@ class App extends React.Component {
     const response = await auth.login(user)
     
     if (response.message) {
-      this.setState({ failure: response.message });
+      this.setState({ errorMessage: response.message });
       return;
     }
 
     await token.setToken(response)
     const profile = await auth.profile()
-    this.setState({ currentUserId: profile.user._id })
+    this.setState({ currentUserId: profile.user._id, isAdmin: profile.user.admin })
   }
 
   async signupUser (user) {
     const response = await auth.signup(user)
     
     if (response.message) {
-      this.setState({ failure: response.message });
+      this.setState({ errorMessage: response.message });
       throw new Error(response.message)
     }
     
     await token.setToken(response)
     const profile = await auth.profile()
-    this.setState({ currentUserId: profile.user._id })
+    this.setState({ currentUserId: profile.user._id, isAdmin: profile.user.admin })
   }
 
   logoutUser () {
     token.clearToken()
-    this.setState({ currentUserId: null })
+    this.setState({ currentUserId: null, isAdmin: false })
   }
 
   render () {
-    const { currentUserId, loading } = this.state;
+    const { currentUserId, isAdmin, assignmentsGraded, assignmentsUngraded, loading } = this.state;
     if (loading) return <p>Loading...</p>
     return (
       <Router>
         <Header />
         <Navigation 
           currentUserId={currentUserId} 
+          isAdmin={isAdmin}
           logoutUser={this.logoutUser}
         />
         <Switch>
           <Route path='/login' exact component={() => {
-            return currentUserId ? <Redirect to='/users' /> : <Login onSubmit={this.loginUser} failure={this.state.failure} />
+            return currentUserId ? <Redirect to='/users' /> : <Login onSubmit={this.loginUser} errorMessage={this.state.errorMessage} />
           }} />
           <Route path='/signup' exact component={() => {
-            return currentUserId ? <Redirect to='/users' /> : <Signup onSubmit={this.signupUser} failure={this.state.failure} />
+            return currentUserId ? <Redirect to='/users' /> : <Signup onSubmit={this.signupUser} errorMessage={this.state.errorMessage} />
           }} />
-
           <Route path='/users' render={() => {
             return currentUserId
-              ? <UsersContainer currentUserId={currentUserId} />
+              ? <UsersContainer currentUserId={currentUserId} isAdmin={isAdmin}/>
               : <Redirect to='/login' />
           }} />
-
+          {/* <Route path='/assignments/graded' render={() => {
+            return currentUserId && isAdmin
+              ? <AssignmentsContainer assignments={assignmentsGraded}/>
+              : <Redirect to='/login' />
+          }} />
+          <Route path='/assignments/ungraded' render={() => {
+            return currentUserId && isAdmin
+              ? <AssignmentsContainer assignments={assignmentsUngraded}/>
+              : <Redirect to='/login' />
+          }} /> */}
           <Redirect to='/login' />
         </Switch>
       </Router>

@@ -1,3 +1,6 @@
+.right {
+  float: right;
+}
 
 span.error-message {
   display: block;

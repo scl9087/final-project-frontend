@@ -26,14 +26,16 @@ export default class Container extends React.Component {
   }
 
   render () {
-    const { currentUserId } = this.props;
+    const { currentUserId, isAdmin } = this.props;
     const { users, loading } = this.state;
     if (loading) return <span />;
+    
     return (
       <main className='container'>
         <Route path='/users' exact component={() => <List users={users} />} />
         <AssignmentsContainer 
           currentUserId={currentUserId}
+          isAdmin={isAdmin}
           refreshUsers={this.refreshUsers}
           users={users} />
       </main>
