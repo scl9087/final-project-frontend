@@ -98,4 +98,3 @@ p.grade {
   border: solid 1px #007bff;
 }
 
-.form-control:valid~.invalid-feedback {display: none;}
