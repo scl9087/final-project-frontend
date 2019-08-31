@@ -53,13 +53,14 @@ class Container extends React.Component {
   }
 
   render () {
-    const { currentUserId, users } = this.props
+    const { currentUserId, users, assignment } = this.props
     return (
       <>
         <Route path='/users/graded' exact component={() => {
           return <Graded
             currentUserId={currentUserId}
             users={users}
+            assignment={assignment}
             onSubmit={this.editScore}
           />
         }} />
@@ -67,6 +68,7 @@ class Container extends React.Component {
           return <Ungraded
             currentUserId={currentUserId}
             users={users}
+            assignment={assignment}
             onSubmit={this.editScore}
           />
         }} />

@@ -25,7 +25,7 @@ export const editAssignment = ({ user, assignment }) => {
 }
 
 export const editScore = ({ user, assignment }) => {
-  const path = `/api/users/${user._id}/assignments/${assignment._id}/score`
+  const path = `/api/users/${user._id}/assignments/${assignment._id}`
   const options = { body: assignment, method: 'PUT' }
   return request(path, options)
 }

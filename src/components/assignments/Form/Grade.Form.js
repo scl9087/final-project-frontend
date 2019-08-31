@@ -25,6 +25,8 @@ export default class Form extends React.Component {
     } else {
       this.props.onSubmit(this.state)
     }
+    console.log(assignment)
+    console.log(assignment._id)
   }
 
   render () {
