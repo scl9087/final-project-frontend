@@ -1,5 +1,10 @@
 import request from './request'
 
+export const getAllAssignments = ({ user, assignment }) => {
+  const path = `/api/users/assignments`
+  const options = { body: assignment, method: 'GET' }
+  return request(path, options)
+}
 
 export const createAssignment = ({ user, assignment }) => {
   const path = `/api/users/${user._id}/assignments`

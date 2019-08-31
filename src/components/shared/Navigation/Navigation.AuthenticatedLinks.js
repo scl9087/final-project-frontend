@@ -28,7 +28,7 @@ const AuthenticatedLinks = ({ currentUserId, isAdmin, logoutUser, history, user 
         <li className='nav-item'>
           <Link className='nav-link' 
             user={user} 
-            to={`/assignments/ungraded`}
+            to={`/users/assignments`}
           >
               Ungraded Assignments
           </Link>
@@ -39,7 +39,7 @@ const AuthenticatedLinks = ({ currentUserId, isAdmin, logoutUser, history, user 
         <li className='nav-item'>
           <Link className='nav-link' 
             user={user} 
-            to={`/assignments/graded`}
+            to={`/users/assignments`}
           >
               Graded Assignments
           </Link>

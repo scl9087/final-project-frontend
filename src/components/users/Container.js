@@ -11,13 +11,16 @@ export default class Container extends React.Component {
     super(props)
     this.state = {
       users: [],
+      assignmentsArray: [],
       loading: true
     };
     this.refreshUsers = this.refreshUsers.bind(this);
+    this.refreshAssignments = this.refreshAssignments.bind(this);
   }
 
   async componentDidMount() {
     this.refreshUsers().then(() => this.setState({ loading: false }));
+    this.refreshAssignments()
   }
 
   async refreshUsers() {
@@ -25,9 +28,14 @@ export default class Container extends React.Component {
     this.setState({ users: response });
   }
 
+  async refreshAssignments() {
+    const {response} = await users.getAllAssignments();
+    this.setState({ assignmentsArray: response });
+  }
+
   render () {
     const { currentUserId, isAdmin } = this.props;
-    const { users, loading } = this.state;
+    const { users, assignmentsArray, loading } = this.state;
     if (loading) return <span />;
     
     return (
@@ -37,7 +45,10 @@ export default class Container extends React.Component {
           currentUserId={currentUserId}
           isAdmin={isAdmin}
           refreshUsers={this.refreshUsers}
-          users={users} />
+          refreshAssignments={this.refreshAssignments}
+          users={users} 
+          assignmentsArray={assignmentsArray}
+          />
       </main>
     );
   }

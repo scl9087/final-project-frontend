@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default ({ users, isAdmin }) => {
+export default ({ users }) => {
   const lis = users.map(user => (
     <Link to={`/users/${user._id}/assignments`}>
       { !user.admin ? (

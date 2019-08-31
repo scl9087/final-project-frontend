@@ -1,15 +1,18 @@
 import React from 'react'
 import { withRouter } from 'react-router'
 import { Route } from 'react-router-dom'
+
 import * as assignments from '../../api/assignments'
 
 import List from './List/List'
 import EditForm from './Form/Edit.Form'
 import NewForm from './Form/New.Form'
+import All from './All'
 
 class Container extends React.Component {
   constructor (props) {
     super(props)
+
     this.createAssignment = this.createAssignment.bind(this)
     this.destroyAssignment = this.destroyAssignment.bind(this)
     this.editAssignment = this.editAssignment.bind(this)
@@ -40,9 +43,14 @@ class Container extends React.Component {
   }
 
   render () {
-    const { currentUserId, users } = this.props
+    const { currentUserId, users, assignmentsArray } = this.props
     return (
       <>
+        <Route path='/users/assignments' exact component={() => {
+          return <All
+            users={users}
+          />
+        }} />
         <Route path='/users/:userId/assignments' exact component={({ match }) => {
           const user = users.find(user => user._id === match.params.userId)
           return <List 

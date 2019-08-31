@@ -6,10 +6,11 @@ import Navigation from './shared/Navigation/Navigation'
 import Login from './auth/Login.Form'
 import Signup from './auth/Signup.Form'
 import UsersContainer from './users/Container'
-
+import AssignmentsContainer from './assignments/Container'
 
 import * as auth from '../api/auth'
 import * as token from '../helpers/local-storage'
+
 
 class App extends React.Component {
   constructor () {
@@ -18,7 +19,8 @@ class App extends React.Component {
       currentUserId: null,
       isAdmin: false,
       loading: true,
-      errorMessage: null
+      errorMessage: null,
+      // assignments:''
     }
 
     this.loginUser = this.loginUser.bind(this)
@@ -30,6 +32,7 @@ class App extends React.Component {
     try {
       if (token.getToken()) {
         const { user } = await auth.profile()
+        // const assignments = await assignments.getAssignments();
         this.setState({ currentUserId: user._id, isAdmin: user.admin, loading: false })
       } 
     } catch (e) {
@@ -70,7 +73,7 @@ class App extends React.Component {
   }
 
   render () {
-    const { currentUserId, isAdmin, assignmentsGraded, assignmentsUngraded, loading } = this.state;
+    const { currentUserId, isAdmin, loading } = this.state;
     if (loading) return <p>Loading...</p>
     return (
       <Router>
@@ -92,16 +95,11 @@ class App extends React.Component {
               ? <UsersContainer currentUserId={currentUserId} isAdmin={isAdmin}/>
               : <Redirect to='/login' />
           }} />
-          {/* <Route path='/assignments/graded' render={() => {
+          <Route path='/users/assignments' render={() => {
             return currentUserId && isAdmin
-              ? <AssignmentsContainer assignments={assignmentsGraded}/>
+              ? <AssignmentsContainer currentUserId={currentUserId} isAdmin={isAdmin}/>
               : <Redirect to='/login' />
           }} />
-          <Route path='/assignments/ungraded' render={() => {
-            return currentUserId && isAdmin
-              ? <AssignmentsContainer assignments={assignmentsUngraded}/>
-              : <Redirect to='/login' />
-          }} /> */}
           <Redirect to='/login' />
         </Switch>
       </Router>
