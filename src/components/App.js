@@ -95,11 +95,6 @@ class App extends React.Component {
               ? <UsersContainer currentUserId={currentUserId} isAdmin={isAdmin}/>
               : <Redirect to='/login' />
           }} />
-          <Route path='/users/assignments' render={() => {
-            return currentUserId && isAdmin
-              ? <AssignmentsContainer currentUserId={currentUserId} isAdmin={isAdmin}/>
-              : <Redirect to='/login' />
-          }} />
           <Redirect to='/login' />
         </Switch>
       </Router>

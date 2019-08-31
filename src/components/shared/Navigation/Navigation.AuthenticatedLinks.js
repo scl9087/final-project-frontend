@@ -10,7 +10,7 @@ const AuthenticatedLinks = ({ currentUserId, isAdmin, logoutUser, history, user 
   
   return (
     <ul className='nav justify-content-start'>
-      {currentUserId && isAdmin ? (
+      {currentUserId && !isAdmin ? (
         <li className='nav-item'>
           <Link className='nav-link' 
             user={user} 
@@ -28,7 +28,7 @@ const AuthenticatedLinks = ({ currentUserId, isAdmin, logoutUser, history, user 
         <li className='nav-item'>
           <Link className='nav-link' 
             user={user} 
-            to={`/users/assignments`}
+            to={`/users/ungraded`}
           >
               Ungraded Assignments
           </Link>
@@ -39,7 +39,7 @@ const AuthenticatedLinks = ({ currentUserId, isAdmin, logoutUser, history, user 
         <li className='nav-item'>
           <Link className='nav-link' 
             user={user} 
-            to={`/users/assignments`}
+            to={`/users/graded`}
           >
               Graded Assignments
           </Link>

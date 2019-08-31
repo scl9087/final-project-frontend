@@ -12,6 +12,31 @@ span.error-message {
   font-size: 16px;
 }
 
+form.grade {
+  width: 240px;
+  max-width: 400px;
+  margin: 0;
+  float: right;
+  position: relative;
+  top: -45px;
+}
+
+.grade input {
+  width: 88px;
+  float: left;
+}
+
+.grade .btn {
+  clear: both;
+  width: 100%;
+}
+
+.grade span {
+  padding: 10px;
+  margin-bottom: 5px;
+  float: left;
+}
+
 ul.student-list {
   padding: 0;
 }
@@ -37,10 +62,6 @@ ul.student-list a:hover {
   color: #333637;
 }
 
-p.description {
-  width: 80%;
-}
-
 p.grade {
   width: 10%;
   float: right;
@@ -49,11 +70,6 @@ p.grade {
 
 .card.assignment {
   margin-bottom: 15px;
-}
-
-.card-body h3 {
-  width: 85%;
-  float: left;
 }
 
 .button-container {

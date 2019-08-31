@@ -7,7 +7,8 @@ import * as assignments from '../../api/assignments'
 import List from './List/List'
 import EditForm from './Form/Edit.Form'
 import NewForm from './Form/New.Form'
-import All from './All'
+import Graded from './List/List.Graded'
+import Ungraded from './List/List.Ungraded'
 
 class Container extends React.Component {
   constructor (props) {
@@ -16,6 +17,7 @@ class Container extends React.Component {
     this.createAssignment = this.createAssignment.bind(this)
     this.destroyAssignment = this.destroyAssignment.bind(this)
     this.editAssignment = this.editAssignment.bind(this)
+    this.editScore = this.editScore.bind(this)
   }
 
   async createAssignment (assignment) {
@@ -42,13 +44,30 @@ class Container extends React.Component {
     history.push(`/users/${currentUserId}/assignments`)
   }
 
+  async editScore (assignment) {
+    const { currentUserId, history, refreshUsers } = this.props
+    await assignments.editScore({ user: { _id: currentUserId }, assignment })
+    await refreshUsers()
+    // history.push(`/users/${currentUserId}/assignments/assignment._id/score`)
+    history.push(`/users/${currentUserId}/assignments/`)
+  }
+
   render () {
-    const { currentUserId, users, assignmentsArray } = this.props
+    const { currentUserId, users } = this.props
     return (
       <>
-        <Route path='/users/assignments' exact component={() => {
-          return <All
+        <Route path='/users/graded' exact component={() => {
+          return <Graded
+            currentUserId={currentUserId}
             users={users}
+            onSubmit={this.editScore}
+          />
+        }} />
+        <Route path='/users/ungraded' exact component={() => {
+          return <Ungraded
+            currentUserId={currentUserId}
+            users={users}
+            onSubmit={this.editScore}
           />
         }} />
         <Route path='/users/:userId/assignments' exact component={({ match }) => {
