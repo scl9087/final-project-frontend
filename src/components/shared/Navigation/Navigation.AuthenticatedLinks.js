@@ -64,6 +64,12 @@ const AuthenticatedLinks = ({ currentUserId, isAdmin, logoutUser, history, user 
             Logout
         </button>
       </li>
+      {currentUserId && !isAdmin ? (
+        <li className='nav-item'>
+            <p>Welcome Admin!</p>
+        </li>
+      ) : null
+      }
     </ul>
   )
 }

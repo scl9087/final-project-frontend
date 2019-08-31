@@ -98,3 +98,6 @@ p.grade {
   border: solid 1px #007bff;
 }
 
+.nav-item p {
+  margin: 7px 0 0 0;
+}

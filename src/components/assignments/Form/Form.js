@@ -61,6 +61,8 @@ export default class Form extends React.Component {
             value={this.state.description} />
         </div>
         <button type='submit' className='btn btn-primary'>Submit</button>
+
+        <span className='error-message'>{this.props.errorMessage}</span>
       </form>
     )
   }
