@@ -6,7 +6,6 @@ import Navigation from './shared/Navigation/Navigation'
 import Login from './auth/Login.Form'
 import Signup from './auth/Signup.Form'
 import UsersContainer from './users/Container'
-import AssignmentsContainer from './assignments/Container'
 
 import * as auth from '../api/auth'
 import * as token from '../helpers/local-storage'
@@ -20,7 +19,6 @@ class App extends React.Component {
       isAdmin: false,
       loading: true,
       errorMessage: null,
-      // assignments:''
     }
 
     this.loginUser = this.loginUser.bind(this)
@@ -32,7 +30,6 @@ class App extends React.Component {
     try {
       if (token.getToken()) {
         const { user } = await auth.profile()
-        // const assignments = await assignments.getAssignments();
         this.setState({ currentUserId: user._id, isAdmin: user.admin, loading: false })
       } 
     } catch (e) {
