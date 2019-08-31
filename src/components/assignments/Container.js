@@ -49,7 +49,7 @@ class Container extends React.Component {
     await assignments.editScore({ user: { _id: currentUserId }, assignment })
     await refreshUsers()
     // history.push(`/users/${currentUserId}/assignments/assignment._id/score`)
-    history.push(`/users/${currentUserId}/assignments/`)
+    history.push(`/users/assignments/`)
   }
 
   render () {

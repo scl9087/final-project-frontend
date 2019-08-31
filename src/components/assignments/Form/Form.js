@@ -31,33 +31,36 @@ export default class Form extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className='form-group'>
-          <label htmlFor='title'>Assignment Title</label>
+          <label htmlFor='title'>Assignment Title (required)</label>
           <input
             className='form-control'
             id='title'
             onChange={this.handleChange}
             name='title'
             type='text'
+            required
             value={this.state.title} />
         </div>
         <div className='form-group'>
-          <label htmlFor='project_link'>Project Link</label>
+          <label htmlFor='project_link'>Project Link (required)</label>
           <input
             className='form-control'
             id='project_link'
             onChange={this.handleChange}
             name='project_link'
             type='text'
+            required
             value={this.state.project_link} />
         </div>
         <div className='form-group'>
-          <label htmlFor='description'>Project Description</label>
+          <label htmlFor='description'>Project Description (required)</label>
           <textarea
             className='form-control'
             id='description'
             onChange={this.handleChange}
             name='description'
             type='text'
+            required
             value={this.state.description} />
         </div>
         <button type='submit' className='btn btn-primary'>Submit</button>

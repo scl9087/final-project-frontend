@@ -31,10 +31,19 @@ export default ({ users, onSubmit }) => {
     ))
   )
 
-  return (
-    <>
-      <h2>Ungraded Assignments</h2>
+  if (lis.length < 0) {
+    return (
+      <>
+        <h2>Ungraded Assignments</h2>
         { lis }
-    </>
-  )
+      </>
+    )
+  } else {
+    return (
+      <>
+        <h2>Ungraded Assignments</h2>
+        <p>Congratulations! You have graded all assignments!</p>
+      </>
+    )
+  }
 }

@@ -8,7 +8,7 @@ class Form extends React.Component {
       first_name: '',
       last_name: '',
       email: '',
-      password: '',
+      password: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -31,7 +31,7 @@ class Form extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className='form-group'>
-          <label htmlFor='email'>Email Address</label>
+          <label htmlFor='email'>Email Address (required)</label>
           <input
             placeholder='Ex. youremail@gmail.com'
             className='form-control'
@@ -39,10 +39,12 @@ class Form extends React.Component {
             onChange={this.handleChange}
             name='email'
             type='email'
-            value={this.state.email} />
+            required
+            value={this.state.email}
+          />
         </div>
         <div className='form-group'>
-          <label htmlFor='password'>Password</label>
+          <label htmlFor='password'>Password (required)</label>
           <input
             placeholder='minimum of 8 characters'
             className='form-control'
@@ -50,12 +52,14 @@ class Form extends React.Component {
             onChange={this.handleChange}
             name='password'
             type='password'
-            value={this.state.password} />
+            required
+            value={this.state.password} 
+          />
         </div>
         {(this.props.location.pathname === '/signup') && 
           <>
             <div className='form-group'>
-              <label htmlFor='first_name'>First Name</label>
+              <label htmlFor='first_name'>First Name (required)</label>
               <input
                 placeholder='Ex. Jane'
                 className='form-control'
@@ -63,10 +67,12 @@ class Form extends React.Component {
                 onChange={this.handleChange}
                 name='first_name'
                 type='text'
-                value={this.state.first_name} />
+                required
+                value={this.state.first_name} 
+              />
             </div>
             <div className='form-group'>
-              <label htmlFor='last_name'>Last Name</label>
+              <label htmlFor='last_name'>Last Name (required)</label>
               <input
                 placeholder='Ex. Doe'
                 className='form-control'
@@ -74,7 +80,9 @@ class Form extends React.Component {
                 onChange={this.handleChange}
                 name='last_name'
                 type='text'
-                value={this.state.last_name} />
+                required
+                value={this.state.last_name} 
+                />
             </div>
           </>
         }
