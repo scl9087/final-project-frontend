@@ -28,7 +28,6 @@ export default class Form extends React.Component {
       }
     } catch (err) {
       console.log(err)
-      const errorMessage = e.message
     }
   }
 

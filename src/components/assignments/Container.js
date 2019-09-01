@@ -42,6 +42,7 @@ class Container extends React.Component {
     await refreshUsers()
     
     history.push(`/users/${currentUserId}/assignments`)
+    return <p>Assignment deleted</p>
   }
 
   async editAssignment (assignment) {
