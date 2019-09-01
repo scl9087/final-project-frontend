@@ -17,13 +17,18 @@ export default class Form extends React.Component {
 
   handleSubmit (e) {
     e.preventDefault()
-    const { assignment } = this.props
+    try {
+      const { assignment } = this.props
 
-    if (assignment && assignment._id) {
-      const body = Object.assign({}, this.state, { _id: assignment._id })
-      this.props.onSubmit(body)
-    } else {
-      this.props.onSubmit(this.state)
+      if (assignment && assignment._id) {
+        const body = Object.assign({}, this.state, { _id: assignment._id })
+        this.props.onSubmit(body)
+      } else {
+        this.props.onSubmit(this.state)
+      }
+    } catch (err) {
+      console.log(err)
+      const errorMessage = e.message
     }
   }
 
@@ -38,6 +43,7 @@ export default class Form extends React.Component {
             onChange={this.handleChange}
             name='title'
             type='text'
+            required
             value={this.state.title} />
         </div>
         <div className='form-group'>
@@ -48,6 +54,7 @@ export default class Form extends React.Component {
             onChange={this.handleChange}
             name='project_link'
             type='text'
+            required
             value={this.state.project_link} />
         </div>
         <div className='form-group'>
@@ -58,6 +65,7 @@ export default class Form extends React.Component {
             onChange={this.handleChange}
             name='description'
             type='text'
+            required
             value={this.state.description} />
         </div>
         <button type='submit' className='btn btn-primary'>Submit</button>

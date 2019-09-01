@@ -13,7 +13,10 @@ import Ungraded from './List/List.Ungraded'
 class Container extends React.Component {
   constructor (props) {
     super(props)
-
+    this.state = {
+      errorMessage: null
+    }
+    
     this.createAssignment = this.createAssignment.bind(this)
     this.destroyAssignment = this.destroyAssignment.bind(this)
     this.editAssignment = this.editAssignment.bind(this)
@@ -21,11 +24,16 @@ class Container extends React.Component {
   }
 
   async createAssignment (assignment) {
-    const { currentUserId, history, refreshUsers } = this.props
-    await assignments.createAssignment({ user: { _id: currentUserId }, assignment })
-    await refreshUsers()
+      const { currentUserId, history, refreshUsers } = this.props
+      const response = await assignments.createAssignment({ user: { _id: currentUserId }, assignment })
+      await refreshUsers()
 
-    history.push(`/users/${currentUserId}/assignments`)
+      if (response.message) {
+        this.setState({ errorMessage: response.message });
+        return;
+      }
+
+      history.push(`/users/${currentUserId}/assignments`)
   }
 
   async destroyAssignment (assignment) {
@@ -81,12 +89,12 @@ class Container extends React.Component {
           />
         }} />
         <Route path='/users/:userId/assignments/new' exact component={() => {
-          return <NewForm onSubmit={this.createAssignment} />
+          return <NewForm onSubmit={this.createAssignment} errorMessage={this.state.errorMessage}/>
         }} />
         <Route path='/users/:userId/assignments/:assignmentId/edit' exact component={({ match }) => {
           const user = users.find(user => user._id === match.params.userId)
           const assignment = user.assignments.find(user => user._id === match.params.assignmentId)
-          return <EditForm onSubmit={this.editAssignment} assignment={assignment} />
+          return <EditForm onSubmit={this.editAssignment} assignment={assignment} errorMessage={this.state.errorMessage}/>
         }} />
       </>
     )

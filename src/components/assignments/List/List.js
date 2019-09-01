@@ -7,7 +7,10 @@ export default ({ currentUserId, destroyAssignment, user }) => {
     <div key={assignment._id} className='card assignment'>
       <div className='card-body'>
         <h3 className='card-title'>{ assignment.title }</h3>
-        <p className='card-text grade'>{ assignment.score } / { assignment.points_possible }</p>
+        {( assignment.score ? (
+          <p className='card-text grade'>{ assignment.score } / { assignment.points_possible }</p>
+        ): (<p className='card-text grade'>TBD</p>)
+        )}
         <p className='card-text description'>{ assignment.description }</p>
         <a href='{ assignment.project_link }' target='_blank' className='card-text'>{ assignment.project_link }</a>
       

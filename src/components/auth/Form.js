@@ -23,7 +23,6 @@ class Form extends React.Component {
     e.preventDefault()
     this.props.onSubmit(this.state)
       .then(() => this.props.history.push('/users'))
-      //prevent text from clearing out
       .catch((err) => console.log(err))
   }
 

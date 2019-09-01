@@ -63,7 +63,7 @@ ul.student-list a:hover {
 }
 
 p.grade {
-  width: 10%;
+  width: 20%;
   float: right;
   text-align: right;
 }
@@ -100,4 +100,5 @@ p.grade {
 
 .nav-item p {
   margin: 7px 0 0 0;
+  padding-left: 70px;
 }
